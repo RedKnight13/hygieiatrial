@@ -64,9 +64,9 @@ class HygieiaHandler extends TransactionHandler{
             
         
             
-            let address=_hash("hygieia").substr(0, 6) + _hash(pblckey).substr(0, 64);
+            let address=_hash("hygieia").substr(0, 6)+ _hash(pl.proc).substr(0, 3)+ _hash(pl.bgroup).substr(0, 3)+ _hash(pl.part).substr(0, 3)   + _hash(pl.idNo).substr(0, 55);
             
-            
+            console.log ("THis is the address:   " +address);
             
             console.log(pl.bgroup+pl.part +pl.Gender + pl.idNo+pl.Date+pl.name+pl.proc);
             

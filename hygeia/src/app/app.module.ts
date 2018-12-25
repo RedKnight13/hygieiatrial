@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
 import { RespComponent } from './resp/resp.component';
 import { NavComponent } from './nav/nav.component';
+import { AboutComponent } from './about/about.component';
+import { MainComponent } from './main/main.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { NavComponent } from './nav/nav.component';
     AppComponent,
     PageComponent,
     RespComponent,
-    NavComponent
+    NavComponent,
+    AboutComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

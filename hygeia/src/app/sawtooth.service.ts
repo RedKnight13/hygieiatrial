@@ -26,6 +26,7 @@ export class SawtoothService {
   public address:any;
   public publicKey:any;
   public signer:any;
+  public addrNs:any;
 
   
     
@@ -36,30 +37,15 @@ export class SawtoothService {
     return createHash('sha512').update(v).digest('hex');
   }
 
-  private genAddress(pblckey){
-    this.address =  this.hash("hygieia").substr(0, 6) + this.hash(pblckey).substr(0, 64);
-    return this.address;
-  }
-  /*-------------Creating transactions & batches--------------------*/
-/*
-  private getTransactionsList(payload): any {
-    // Create transaction header
-    const transactionHeader = this.getTransactionHeaderBytes([this.address], [this.address], payload);
-    // Create transaction
-    const transaction = this.getTransaction(transactionHeader, payload);
-    // Transaction list
-    const transactionsList = [transaction];
-
-    return transactionsList
-  }
-*/
+ 
+  
 
 private getTransactionHeaderBytes(inputAddressList, outputAddressList, payload): any {
   const transactionHeaderBytes = protobuf.TransactionHeader.encode({
     familyName: this.Family_name,
     familyVersion: this.Family_version,
-    inputs: inputAddressList,
-    outputs: outputAddressList,
+    inputs: [this.addrNs],
+    outputs: [this.addrNs],
     signerPublicKey: this.publicKey,
     batcherPublicKey: this.publicKey,
     dependencies: [],
@@ -108,9 +94,7 @@ private getBatchListBytes(batchesList): any {
 }
 
 private getBatchList(transactionsList) {
-  // Complete here
-  //const transactions = transactionsList;
-  // List of transaction signatures
+  
   const transactionSignatureList = transactionsList.map((tx) => tx.headerSignature);
 
   // Create batch header
@@ -138,11 +122,10 @@ private getDecodedData(responseJSON): string {
   return decodedData;
 }
 
-// Count button will call this function directly
-// For Count button calls, 'batchListBytes' will be null
+
   public async sendToRestAPI(batchListBytes) :Promise<any>{
     if (batchListBytes == null) {
-
+          //to match the donor n receipient we need txnid for detzai
       // GET state
       return this.getState(this.address)
         .then((response) => {
@@ -186,7 +169,7 @@ private getDecodedData(responseJSON): string {
     try{
 
     const context = createContext('secp256k1');
-    // Creating a random private key - In LIVE, we will be using our own private keys
+    // Creating a random private key 
     const privateKey = context.newRandomPrivateKey();
     this.signer = new CryptoFactory(context).newSigner(privateKey);
     this.publicKey=this.signer.getPublicKey().asHex();
@@ -197,12 +180,14 @@ private getDecodedData(responseJSON): string {
     console.log(data+"data");
     //return data;
     const encData=new TextEncoder('utf8').encode(data);
-    console.log(encData+"encDAta");
-    console.log("Public"+this.publicKey+"Private ")
+    //console.log(encData+"encDAta");
+    //console.log("Public"+this.publicKey+"Private ")
    // this.address=this.genAddress(this.publicKey)
    this.address =  this.hash("hygieia").substr(0, 6) + this.hash(this.publicKey).substr(0, 64);
+   this.addrNs=this.hash("hygieia").substr(0,6)
     console.log("ThisAddress"+this.address)
-     // Create transaction header
+     // Create transaction header--address passed is not the list of input/ouput addresses
+	     //it is used instead of null
     const transactionHeader = this.getTransactionHeaderBytes([this.address], [this.address], encData);
     console.log("After txn header")
     // Create transaction
