@@ -33,7 +33,12 @@ class HygieiaHandler extends TransactionHandler{
   
         var  payloadDecoded= {
           bgroup:payload[0],
-          part: payload[1]
+          part: payload[1],
+          Gender: payload[2],
+          idNo: payload[3],
+          Date:payload[4],
+          name:payload[5],
+          proc:payload[6]
         }
         return payloadDecoded
       }
@@ -47,7 +52,7 @@ class HygieiaHandler extends TransactionHandler{
            let payload = transacationProcessRequest.payload.toString().split(',')
             console.log("HelloWorldlkfkhdkfshfgs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             let pl=this.decodepayload(payload);
-            console.log(pl.bgroup+","+pl.part)
+            console.log(pl.bgroup+","+pl.part +","+pl.Gender +","+ pl.idNo+ ","+pl.Date +","+ pl.name+ ","+ pl.proc)
 
             //address generation*****************
             let signerPk=transacationProcessRequest.header.signerPublicKey;
@@ -55,8 +60,15 @@ class HygieiaHandler extends TransactionHandler{
             const publicKeyHash= _hash(signerPk)
             let header=transacationProcessRequest.header
             let pblckey=header.signerPublicKey//_hash('hygieia').substring(0,6)+_hash(pl.part)+_hash(pl.bgroup)+publicKeyHash
+            
+            
+        
+            
             let address=_hash("hygieia").substr(0, 6) + _hash(pblckey).substr(0, 64);
-            console.log(pl.bgroup+pl.part);
+            
+            
+            
+            console.log(pl.bgroup+pl.part +pl.Gender + pl.idNo+pl.Date+pl.name+pl.proc);
             
 
             return context.getState([address])

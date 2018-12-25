@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SawtoothService } from '../sawtooth.service';
 
 @Component({
   selector: 'app-resp',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RespComponent implements OnInit {
 
-  constructor() { }
+  users=[];
+  clickMessage="";
+  servicedata="";
 
+  constructor(private Form:SawtoothService) { 
+    console.log("Inside page component.ts")
+  }
   ngOnInit() {
   }
-
+  async addForm(btype:string,otype:string,Gender:string,idproof:string,date:string,Name:string){
+   // event.preventDefault();
+   
+   this.clickMessage="Blood type:"+btype+"Organ type:" +otype +" Gender: "+Gender + " Registration Date:"+date + " Name:" +Name;
+   const reproc ="resp"
+    const servDt =await this.Form.sendData(btype,otype,Gender,idproof,date,Name,reproc);
+    
+    this.servicedata="htis is service dAatta"+servDt;
+    //+servDt.toString();
+    
+  }
 }

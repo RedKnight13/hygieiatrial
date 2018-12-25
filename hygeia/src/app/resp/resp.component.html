@@ -2,7 +2,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <br/>
-<br/><legend><p class="p1">Enter Details of Donor</p></legend><br/>
+<br/><legend><p class="p1">Enter Details of Recipient</p></legend><br/>
 <div class="container">
 
   <form  class="form" >
@@ -10,33 +10,27 @@
 
       <label class="control-label col-sm-2" id="name">Name:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" placeholder="name" name='name' ngModel required pattern="^[a-zA-Z\.]*$">
+        <input #Name type="text" class="form-control" id="name" placeholder="name" name='Name' ngModel required pattern="^[a-zA-Z\.]*$">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" id="Date">Date of Birth:</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" id="Date" placeholder="Date" name='date' ngModel required>
+        <input #date type="date" class="form-control" id="date" placeholder="Date" name='date' ngModel required>
       </div>
     </div>
     
-    <div class="form-group col-sm-2">
-        <label class="form-check-label">Gender:</label></div>
-        <div class="form-check-inline ">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">Male
-      </label>
-    </div>
-    <div class="form-check-inline ">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">Female
-      </label>
-    </div>
-    <div class="form-check-inline ">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">Other
-      </label>
-    </div> 
+    <div class="form-group">
+      <label class="control-label col-sm-2" id="Gender">Gender:</label>
+      <div class="col-sm-10">
+              <select class="form-control" id="Gender" #Gender type="text" name='Gender' ngModel required>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+              <br>
+        </div>
+      </div>
     <div class="form-group">
       <label class="control-label col-sm-2" id="btype">Blood Type:</label>
       <div class="col-sm-10">
@@ -73,7 +67,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" id="idproof">Enter Identity No:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="idproof" placeholder="enter government given identity proof (aadhar preferred)" name="pwd">
+        <input #idproof type="text" class="form-control" id="idproof" placeholder="enter government given identity proof (aadhar preferred)" name="pwd">
       </div>
     </div>
     <div class="form-group">
@@ -97,7 +91,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary"  (click)="addForm(btype.value,otype.value)">Submit</button>
+        <button type="submit" class="btn btn-primary"  (click)="addForm(btype.value,otype.value,Gender.value,idproof.value,date.value,Name.value)">Submit</button>
       </div>
     </div>
   </form>

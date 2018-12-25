@@ -181,7 +181,7 @@ private getDecodedData(responseJSON): string {
 
 
 
-  public async sendData(btype,otype) {
+  public async sendData(btype,otype,gender,idproof,date,name,proc) {
     
     try{
 
@@ -193,7 +193,7 @@ private getDecodedData(responseJSON): string {
     console.log("Inside constructor") 
     // Encode the payload
     /*const payload = this.getEncodedData(action, values);*/
-    const data = btype + "," + otype+",";
+    const data = btype + "," + otype+","+ gender+ "," + idproof+ ","+ date +","+ name +"," +proc;
     console.log(data+"data");
     //return data;
     const encData=new TextEncoder('utf8').encode(data);
